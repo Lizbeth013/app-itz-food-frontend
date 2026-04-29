@@ -1,3 +1,4 @@
+import type { AppState } from '@auth0/auth0-react';
 import {Auth0Provider} from '@auth0/auth0-react';
 import { useNavigate } from 'react-router';
 
@@ -20,9 +21,8 @@ const navigate=useNavigate();
         throw new Error("Eror al  inicializar Auth0");
 
     }
-    const onRedirectCallback=( )=>{
-        navigate('/auth-callback')
-    
+    const onRedirectCallback = (appState: AppState | undefined) => {
+        navigate(appState?.returnTo || '/auth-callback');
     }
   return (
     <Auth0Provider

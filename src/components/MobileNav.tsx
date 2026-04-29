@@ -21,7 +21,7 @@ export default function MobileNav() {
       
         <SheetTitle>
           {isAuthenticated?(
-            <span className="felx items-center font-bold gap-2 mx-4">
+            <span className="flex items-center font-bold gap-2 mx-4">
               <CircleUserRound className="text-orange-500"/>
             {user?.email}
             </span>
@@ -37,7 +37,7 @@ export default function MobileNav() {
           ):(
           
             <Button onClick={()=> loginWithRedirect()}
-                className="felx-1 font-bold bg-orange-500"
+                className="flex-1 font-bold bg-orange-500"
                 > Login</Button>
           )}
         </SheetDescription>

@@ -10,12 +10,17 @@ export default function AuthCallBackPage() {
     const hasCreateUser=useRef(false);
 
 
-    useEffect (()=>{
+    useEffect(()=>{
         if(user?.sub && user?.email && !hasCreateUser.current){
-            createUseRequest.mutate({auth0Id:user.sub,email:user.email});
+            createUseRequest.mutate(
+                {auth0Id:user.sub, email:user.email},
+                { onSettled: () => navigate('/') }
+            );
             hasCreateUser.current=true;
+        } else if(!user?.sub){
+            navigate('/');
         }
-        navigate('/');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [createUseRequest, navigate]) 
   return (
     <div>Loading...</div>

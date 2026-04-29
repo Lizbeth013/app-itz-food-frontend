@@ -7,7 +7,7 @@ export default function MobileNavLinks() {
   return (
     <>
       <Link to='/user-profile'
-      className="text-orange-500- mx-4">
+      className="text-orange-500 mx-4">
         Pefil
       </Link>
       <Button onClick={()=>logout()}

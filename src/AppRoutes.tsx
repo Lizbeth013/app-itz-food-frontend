@@ -2,15 +2,12 @@ import { Navigate,Route,Routes } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import HomePage from "./pages/HomePage";
 import AuthCallBackPage from "./pages/AuthCallBackPage";
-import {QueryClientProvider} from '@tanstack/react-query';
-import queryClient from "./api/queryClient";
 import UserProfilePage from "./pages/UserProfilePage";
 import ProtectedRoute from "./auth/ProtectedRoute";
 
 
 const AppRoutes=()=>{
     return(
-     <QueryClientProvider client={queryClient}>
       <Routes>
         {/*Rurtas públicas*/}
         <Route
@@ -31,7 +28,6 @@ const AppRoutes=()=>{
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </QueryClientProvider>
   )
 }
 

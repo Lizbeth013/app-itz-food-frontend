@@ -41,7 +41,6 @@ export default function UserProfileForm({ onSave, isLoading, getUser }: Props) {
     });//Fin de form
 
     function onSubmit(data: UserFormData) {
-        console.log(JSON.stringify(data));
         onSave(data);
     }//Fin de onSubmit
 
@@ -86,7 +85,6 @@ export default function UserProfileForm({ onSave, isLoading, getUser }: Props) {
                     </FieldGroup>
                     <FieldGroup>
                         <Controller
-                            disabled
                             name="name"
                             control={form.control}
                             render={ ( { field, fieldState}) => (
@@ -113,14 +111,13 @@ export default function UserProfileForm({ onSave, isLoading, getUser }: Props) {
                     <div className='flex flex-col md:flex-row gap-4 mt-4'>
                         <FieldGroup>
                             <Controller
-                                disabled
                                 name="address"
                                 control={form.control}
                                 render={ ( { field, fieldState}) => (
                                     <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel>Dirección</FieldLabel>
                                         <Input
-                                            {...field} disabled
+                                            {...field}
                                             id="address"
                                             aria-invalid={fieldState.invalid}
                                             placeholder='Teclea tu dirección'
@@ -137,14 +134,13 @@ export default function UserProfileForm({ onSave, isLoading, getUser }: Props) {
                         </FieldGroup>
                         <FieldGroup>
                             <Controller
-                                disabled
                                 name="city"
                                 control={form.control}
                                 render={ ( { field, fieldState}) => (
                                     <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel>Ciudad</FieldLabel>
                                         <Input
-                                            {...field} disabled
+                                            {...field}
                                             id="city"
                                             aria-invalid={fieldState.invalid}
                                             placeholder='Teclea tu ciudad'
@@ -161,14 +157,13 @@ export default function UserProfileForm({ onSave, isLoading, getUser }: Props) {
                         </FieldGroup>
                         <FieldGroup>
                             <Controller
-                                disabled
                                 name="country"
                                 control={form.control}
                                 render={ ( { field, fieldState}) => (
                                     <Field data-invalid={fieldState.invalid}>
                                         <FieldLabel>País</FieldLabel>
                                         <Input
-                                            {...field} disabled
+                                            {...field}
                                             id="country"
                                             aria-invalid={fieldState.invalid}
                                             placeholder='Teclea tu país'

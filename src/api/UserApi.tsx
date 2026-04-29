@@ -6,7 +6,6 @@ import { toast } from "sonner";
 
 //Función para crear un usuario en el backend
 export function useCreateUser(){
-    const queryClient = useQueryClient();
     const { getAccessTokenSilently } = useAuth0();
 
     const createUserRequest = async (user:User)=>{
@@ -20,26 +19,18 @@ export function useCreateUser(){
             body: JSON.stringify(user)
         });
         if(!res.ok){
-            console.log(res);
             throw new Error ('Error al crear el usuario');
         }
         return res.json();
-
-    };//Fin de createUserRequest
+    };
 
     return useMutation({
         mutationFn: (user:User) => createUserRequest(user),
-        onError: (err)=>{
-            toast.error("Eror al crear el usuario");
-            console.log(err);
-            throw new Error('Error al crear el usuario')
+        onError: ()=>{
+            toast.error("Error al crear el usuario");
         },
-        onSuccess: (user)=>{
-            console.log(user);
-            queryClient.invalidateQueries({queryKey: ['user']})
-        },
-    })//Fin del return
-}//Fin de useCreateUser
+    })
+}
 
 //Función para actualizar un usuario
 export function useUpdateUser(){
@@ -53,10 +44,9 @@ export function useUpdateUser(){
             method: 'PUT',
             headers: {
                 Authorization: 'Bearer ' + accessToken,
-                'Content-Type': 'Application/json',
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData)
-
         })
         if(!res.ok){
             throw new Error('Error al actualizar el usuario');
@@ -67,13 +57,10 @@ export function useUpdateUser(){
     return useMutation({
         mutationFn: (formData: UpdateUser) => updateUserRequest(formData),
         onError: (err)=>{
-            toast.error(err.toString());
-            console.log(err);
-            throw new Error("Error al actualizar el usuario");
+            toast.error(err.message || "Error al actualizar el usuario");
         },
-        onSuccess:(user)=>{
+        onSuccess:()=>{
             toast.success('Usuario actualizado correctamente');
-            console.log(user);
             queryClient.invalidateQueries({ queryKey: ['user']})
         }
     });//Fin del return
@@ -90,7 +77,7 @@ export function useGetUser(){
             method: 'GET',
             headers: {
                 Authorization: 'Bearer ' + accessToken,
-                'Content-Type': 'Application/json',
+                'Content-Type': 'application/json',
             },
         });
         if(!res.ok)
