@@ -10,11 +10,11 @@ import LoadingButton from '@/components/LoadingButton';
 
 const formSchema = z.object({
     email: z.string().optional(),
-    name: z.string('El nombre debe de ser requerido')
+    name: z.string({ required_error: 'El nombre debe de ser requerido' })
             .min(3,'El nombre debe tener al menos 3 caracteres'),
-    address: z.string('Dirección debe ser requerida'),
-    city: z.string('La ciudad debe ser requerida'),
-    country: z.string('El país debe ser requerido')
+    address: z.string({ required_error: 'Dirección debe ser requerida' }),
+    city: z.string({ required_error: 'La ciudad debe ser requerida' }),
+    country: z.string({ required_error: 'El país debe ser requerido' })
 });//Fin de formSchema
 
 export type UserFormData = z.infer<typeof formSchema>;

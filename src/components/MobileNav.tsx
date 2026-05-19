@@ -8,7 +8,9 @@ import MobileNavLinks from "./MobileNavLinks";
 
 
 export default function MobileNav() {
-  const{isAuthenticated, loginWithRedirect, user}=useAuth0();
+  const { isAuthenticated, loginWithRedirect, user, isLoading } = useAuth0();
+
+  if (isLoading) return null;
 
   return (
     <Sheet>

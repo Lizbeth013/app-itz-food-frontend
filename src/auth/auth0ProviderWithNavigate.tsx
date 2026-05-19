@@ -1,47 +1,38 @@
 import type { AppState } from '@auth0/auth0-react';
-import {Auth0Provider} from '@auth0/auth0-react';
+import { Auth0Provider } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router';
 
-type Props={
+type Props = {
     children: React.ReactNode
 }
-function Auth0ProviderWithNavigate({children}:Props) {
-const navigate=useNavigate();
-    const domain=import.meta.env.VITE_AUTH0_DOMAIN;
-    const clientId=import.meta.env.VITE_AUTH0_CLIENT_ID;
-    const redirectUri=import.meta.env.VITE_AUTH0_CALLBACK_URL;
-    const audience=import.meta.env.VITE_AUTH0_AUDIENCE;
-/*
-    console.log("domain:"+domain);
-    console.log("ClienId:"+ clientId);
-    console.log("redirectUri:"+redirectUri);
-    console.log("audience:"+audience);*/
+function Auth0ProviderWithNavigate({ children }: Props) {
+    const navigate = useNavigate();
+    const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+    const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+    const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
+    const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
 
-    if(!domain || !clientId || !redirectUri || !audience){
-        throw new Error("Eror al  inicializar Auth0");
-
+    if (!domain || !clientId || !redirectUri || !audience) {
+        throw new Error("Error al inicializar Auth0");
     }
+
     const onRedirectCallback = (appState: AppState | undefined) => {
         navigate(appState?.returnTo || '/auth-callback');
     }
-  return (
-    <Auth0Provider
-    domain={domain}
-    clientId={clientId} 
-    authorizationParams={{
-        redirect_uri:redirectUri,
-        audience: audience
-    }}
-    onRedirectCallback={onRedirectCallback}
-    >
-        {children}
-    </Auth0Provider>
-  )
+
+    return (
+        <Auth0Provider
+            domain={domain}
+            clientId={clientId}
+            authorizationParams={{
+                redirect_uri: redirectUri,
+                audience: audience
+            }}
+            onRedirectCallback={onRedirectCallback}
+        >
+            {children}
+        </Auth0Provider>
+    )
 }
 
-
-
-
-
-export default Auth0ProviderWithNavigate
-
+export default Auth0ProviderWithNavigate;

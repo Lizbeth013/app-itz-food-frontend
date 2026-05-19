@@ -12,9 +12,16 @@ export default defineConfig({
     },
   },
   server: {
-    https:{
+    https: {
       key: 'private.key',
       cert: 'certificate.crt'
+    },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false
+      }
     }
   }
 })
