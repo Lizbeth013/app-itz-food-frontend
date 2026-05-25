@@ -9,7 +9,7 @@ type Props={
 export default function SearchResultCard({restaurante}: Props) {
   return (
     <Link
-    to={'/detail'+ restaurante._id}
+    to={'/detail/'+ restaurante._id}
     className="grid lg:grid-cols-[2fr_3fr] gap-5 group">
         <AspectRatio ratio={16/6} >
         <img src={restaurante.imageUrl}

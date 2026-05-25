@@ -112,3 +112,22 @@ export const useSearchRestaurantes = (searchState: SearchState, city?: string) =
         enabled: !!city
     });
 }
+ export const useGetRestaurantById =(restaurantId?:string)=>{
+        const GetRestaurantByIdRequest=async(): Promise<Restaurante> =>{
+            const url=API_BASE_URL
+            +'/api/restaurante/'
+            +restaurantId
+            const response = await fetch(url);
+            if(!response.ok){
+                throw new Error("Errorr al obtener el Restaurante")
+
+            }
+            return response.json();
+        }//Fin de getRestaurantByIdRequest
+        return useQuery({
+            queryKey: ['fetchRestaurant'],
+            queryFn:GetRestaurantByIdRequest,
+            enabled: !!restaurantId
+        })
+    }//Fin de useGetRestaurantById
+    

@@ -7,6 +7,7 @@ import { FieldGroup, Field, FieldLabel, FieldError } from '@/components/ui/field
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import LoadingButton from '@/components/LoadingButton';
+import type { BackEndUser } from '@/api/types';
 
 const formSchema = z.object({
     email: z.string().optional(),
@@ -18,16 +19,20 @@ const formSchema = z.object({
 });//Fin de formSchema
 
 export type UserFormData = z.infer<typeof formSchema>;
-
-import type { BackEndUser } from '@/api/types';
-
 type Props = {
     onSave: (userProfileData: UserFormData) => void;
-    isLoading: boolean;
+    isLoading?: boolean;
     getUser: BackEndUser;
+    title?:string,
+    buttonText?:string
 }
 
-export default function UserProfileForm({ onSave, isLoading, getUser }: Props) {
+export default function UserProfileForm({ 
+    onSave, 
+     getUser ,
+    title="Formulario de perfil del usuario",
+    buttonText="Actualizar"
+}: Props) {
 
     const form = useForm<UserFormData>({
         defaultValues:{
@@ -52,7 +57,7 @@ export default function UserProfileForm({ onSave, isLoading, getUser }: Props) {
             >
                 <CardHeader>
                     <CardTitle>
-                        Perfil del Usuario
+                        {title}
                     </CardTitle>
                     <CardDescription>
                         Consulta y cambia la información de tu perfil aquí
@@ -61,14 +66,13 @@ export default function UserProfileForm({ onSave, isLoading, getUser }: Props) {
                 <CardContent>
                     <FieldGroup>
                         <Controller
-                            disabled
                             name="email"
                             control={form.control}
                             render={ ( { field, fieldState}) => (
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel>Email</FieldLabel>
                                     <Input
-                                        {...field} disabled
+                                        {...field} readOnly
                                         id="email"
                                         aria-invalid={fieldState.invalid}
                                         placeholder='Teclea tu email'
@@ -182,14 +186,13 @@ export default function UserProfileForm({ onSave, isLoading, getUser }: Props) {
                 </CardContent>
                 <CardFooter>
                     <Field orientation="horizontal">
-                        { isLoading ? <LoadingButton /> : (
                             <Button type="submit" 
                                     form="user-profile-form"
                                     className="bg-orange-500 text-white"
                             >
-                                Actualizar
+                                {buttonText}
                             </Button>
-                        )}
+                    
                     </Field>
                 </CardFooter>
             </form>

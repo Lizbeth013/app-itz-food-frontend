@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router';
 import CuisinesFilter from '@/components/Search/CuisinesFilter';
 import SortOptionsDropdown from '@/components/Search/SortOptionsDropdown';
+import PaginationSelector from '@/components/Search/PaginationSelector';
 
 export type SearchState ={
     searchQuery: string;
@@ -45,11 +46,18 @@ const [ isExpanded, setIsExpaded]=useState<boolean>(false);
                 page:1
             }))
         }
+        const setPage =(page:number)=>{
+            setSearchState((prevState)=>({
+                ...prevState,
+                page
+            }))
+        }
 
     const setSearchQuery = (searchFormData: SearchForm)=>{
         setSearchState((prevState)=>({
             ...prevState,
-            searchQuery: searchFormData.searchQuery
+            searchQuery: searchFormData.searchQuery,
+            page: 1,
         }))
 
     }
@@ -101,6 +109,11 @@ const [ isExpanded, setIsExpaded]=useState<boolean>(false);
                     <SearchResultCard restaurante={restaurante} key={key}/>
                 ))
             }
+            <PaginationSelector
+            page={results.pagination.page}
+            pages={results.pagination.pages}
+            onPageChange={setPage}
+            />
         </div>
        </div>
     )

@@ -16,7 +16,7 @@ function Auth0ProviderWithNavigate({ children }: Props) {
         throw new Error("Error al inicializar Auth0");
     }
 
-    const onRedirectCallback = (appState: AppState | undefined) => {
+    const onRedirectCallback = (appState?:AppState) => {
         navigate(appState?.returnTo || '/auth-callback');
     }
 
