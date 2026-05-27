@@ -4,7 +4,7 @@ import { Separator } from './ui/separator';
 import { Button } from "./ui/button";
 import { useAuth0 } from "@auth0/auth0-react";
 import MobileNavLinks from "./MobileNavLinks";
-
+import { Link } from "react-router";
 
 
 export default function MobileNav() {
@@ -35,7 +35,13 @@ export default function MobileNav() {
         <SheetDescription className="flex flex-col gap-4">
           {
           isAuthenticated?(
-            <MobileNavLinks/>
+           <>
+           <Link to="/order-status"
+                className="font-bold hover:text-orange-500">
+                    Ordenes
+                </Link>
+           <MobileNavLinks/>
+           </>
           ):(
           
             <Button onClick={()=> loginWithRedirect()}

@@ -9,7 +9,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 export function useGetRestaurante() {
     const { getAccessTokenSilently } = useAuth0();
 
-    const getRestauranteRequest = async (): Promise<Restaurante | null> => {
+    const getRestauranteRequest = async (): Promise<Restaurante | undefined> => {
         const accessToken = await getAccessTokenSilently();
         const res = await fetch(API_BASE_URL + '/api/restaurante', {
             method: 'GET',
@@ -18,7 +18,7 @@ export function useGetRestaurante() {
                 'Content-Type': 'application/json'
             }
         });
-        if (res.status === 404) return null;
+        if (res.status === 404) return undefined;
         if (!res.ok) {
             throw new Error('Error al obtener el restaurante')
         }
